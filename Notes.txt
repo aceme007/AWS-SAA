@@ -17,4 +17,13 @@ S3 - types
 5. Glacier Deep Archive 12hrs / cheapest
 6. S3 Intelligent Control IC
 
+-----------------------------------------------------------------------------------------------------------------------------------
+
 [EC2]
+(Elastic Compute Cloud)
+
+EC2 Pricing - 
+On Demand - short time, flexible, test/dev
+Reserved (1-3 yrs; 72% discount) - predictable usage, 
+Spot (supply-demand) - image rendering, algorithmic trading, flexible on compute capacity, no guaranteed uptime
+Dedicated most $ - regulatory, 

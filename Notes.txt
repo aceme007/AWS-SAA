@@ -20,10 +20,37 @@ S3 - types
 -----------------------------------------------------------------------------------------------------------------------------------
 
 [EC2]
-(Elastic Compute Cloud)
+~VM (Elastic Compute Cloud)
 
-EC2 Pricing - 
-On Demand - short time, flexible, test/dev
-Reserved (1-3 yrs; 72% discount) - predictable usage, 
-Spot (supply-demand) - image rendering, algorithmic trading, flexible on compute capacity, no guaranteed uptime
-Dedicated most $ - regulatory, 
+EC2 Pricing:
+- On Demand - pay by sec/hr, short time, flexible, test/dev
+- Reserved (1-3 yrs; 72% discount on hourly charge) - predictable usage 
+- Spot (supply-demand; save upto 90% cost from on-demand)
+    image rendering, algorithmic trading, flexible on compute capacity, no guaranteed uptime, dont use for persistent data
+      set max Spot price, 2 mins to choose
+      Spot block (1-6hrs) : block from terminating
+      Spot + Persistent Request : Cancel Spot Request and then terminate Spot Instances
+      Spot Fleets (spot instances + on-demand instances)
+- Dedicated - physical machine, most $
+    regulatory (special licensing requirements like per socket/per core/per VM) compliance requirements
+
+IAM - always use roles instead of hardcoding your credentials
+Polices control role's permissions
+Security Groups - all inbound traffic blocked by default, all outboung traffic allowed
+  all changes take effect immediately
+bootstrap scripts runs at root level (user data)
+metadata is data about EC2 instances
+
+Networking:
+- ENI elastic network interface; low $
+- EN enhanced networking 10-100Gbps; ENA or VirtualFunctionInterface
+- EFA elastic fabric adapter; high performance computing, ML, OS-bypass
+
+Placement Groups: 
+logical grouping EC2 instances depending on what you want to do (certain types of instances can be launched)
+- Cluster: low n/w latency, high througput, same AZ 
+- Spread: distinct underlying hardware (usecase - db HA)
+- Partition: different rack (dedicated n/w & power sources) Eg HDFS, HBase, Cassandra
+can't merge placement groups
+can move instances only after they're in stopped state
+-----------------------------------------------------------------------------------------------------------------------------------

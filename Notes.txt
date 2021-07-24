@@ -1,0 +1,20 @@
+[S3]
+(Simple Storage Service) max 5TB >=3AZs 119's
+- WORM : Write Once Read Many
+- versioning files. If disabled and file deleted, no way to recover files
+- MFA to prevent causal deletion 
+- concept of delete markers (file stays; analogous to audit log)
+- by default all previous versions are private
+- S3 object lock : compliance (no update); governance
+- encryption SSL/SSE
+- replication a/c regions
+
+S3 - types
+1. S3 standard
+2. S3 Std Infrequent Access (msec)
+3. S2 1 Zone IA
+4. Glacier 1hr
+5. Glacier Deep Archive 12hrs / cheapest
+6. S3 Intelligent Control IC
+
+[EC2]

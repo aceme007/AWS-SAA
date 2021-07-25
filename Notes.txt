@@ -58,23 +58,33 @@ can move instances only after they're in stopped state
 
 [EBS]
 (Elastic Block Storage) - virtual hard disk attached to virtual EC2, production workloads, auto replicated; 1 AZ - same as EC2
-SSD (IO optimized)
+SSD (IO optimized, HA)
   - gp2 General Purpose SSD : boot device volumes, install OS
   - gp3 : high performance hadoop, analytics, Cassandra (this is 4x faster than max gp2)
   - io1 Provisioned IOPS : high-performance DB, latency senstive, OLTP
-  - io2 : same $ as io1
-HDD (can't be boot volumes)
+  - io2 : same $ as io1, 5 9's durability
+HDD (throughput optimized, can't be boot volumes)
   - st1 Throughput Optimized HDD : big data, ETL, log processing, data warehousing
   - sc1 Cold HDD lowest $, use file server
 
 we need min 1 volume per EC2 - root device volums
 volumes exist on EBS whereas snapshot are stored on S3 (photo of volume) - point in time copy of voulme; 
-can share snapshots a/c accounts and regions
+stop instance before snapshot; can share snapshots a/c accounts and regions
 
 EBS Encryption - AES256
 encrypt EC2 instance -> create snapshot -> copy snapshot with encrypt -> create image ami -> deployed on EC2
 EC2 Hibernation preserves in mem RAM to EBS <150GB, much faster to boot up, 60 days or less, avail for on-demand & reserved instances
 
 EFS Elastic File System
-manages NFS, multiple AZ (shared storage) very $ 
+managed NFS, multiple AZ (shared storage) very $, encryption at rest KMS, pay per use, scale upto Petabytes
+Usecases - wordpress, content mgmt, web server farms
+FSx (Windows) SMB (ServerMessageBlock) - migrating AD, sharepoint; centralized storage for native MS application
+FSx Lustre Performance - high speed high capacity storage; financial modelling, HPC
+
+AMI - blueprint for EC2
+EBS volumes (stopped & data not lost, can be rebooted with no loss of data, root vol can be [optional] saved on termination) vs 
+InstanceStore volumes (ephemeral storage, cannot stop, can be rebooted with no loss of data, root vol deleted on termination)
+
+AWS backup gives you consolidation, can be used in conjuction with AWS Organization, encrypted, enforce polices lyfecycle mgmt, audit
+
 -----------------------------------------------------------------------------------------------------------------------------------

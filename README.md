@@ -1,1 +1,1 @@
-Cheat Sheet for AWS SAA
+Cheat Sheet for AWS Certified Solutions Architect - Associate (SAA-C02)

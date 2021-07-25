@@ -53,4 +53,23 @@ logical grouping EC2 instances depending on what you want to do (certain types o
 - Partition: different rack (dedicated n/w & power sources) Eg HDFS, HBase, Cassandra
 can't merge placement groups
 can move instances only after they're in stopped state
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+[EBS]
+(Elastic Block Storage) - virtual hard disk attached to virtual EC2, production workloads, auto replicated 1 AZ
+SSD (IO optimized)
+  - gp2 General Purpose SSD : boot device volumes, install OS
+  - gp3 : high performance hadoop, analytics, Cassandra (this is 4x faster than max gp2)
+  - io1 Provisioned IOPS : high-performance DB, latency senstive, OLTP
+  - io2 : same $ as io1
+HDD (can't be boot volumes)
+  - st1 Throughput Optimized HDD : big data, ETL, log processing, data warehousing
+  - sc1 Cold HDD lowest $, use file server
+
+
+
+
+
+
 -----------------------------------------------------------------------------------------------------------------------------------

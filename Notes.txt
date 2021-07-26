@@ -78,13 +78,32 @@ EC2 Hibernation preserves in mem RAM to EBS <150GB, much faster to boot up, 60 d
 EFS Elastic File System
 managed NFS, multiple AZ (shared storage) very $, encryption at rest KMS, pay per use, scale upto Petabytes
 Usecases - wordpress, content mgmt, web server farms
-FSx (Windows) SMB (ServerMessageBlock) - migrating AD, sharepoint; centralized storage for native MS application
-FSx Lustre Performance - high speed high capacity storage; financial modelling, HPC
+FSx (Windows) SMB (ServerMessageBlock) - migrating AD, IIS, sharepoint; centralized storage for native MS application
+FSx Lustre Performance - high speed high capacity distributed storage; financial modelling, HPC
 
 AMI - blueprint for EC2
 EBS volumes (stopped & data not lost, can be rebooted with no loss of data, root vol can be [optional] saved on termination) vs 
 InstanceStore volumes (ephemeral storage, cannot stop, can be rebooted with no loss of data, root vol deleted on termination)
 
 AWS backup gives you consolidation, can be used in conjuction with AWS Organization, encrypted, enforce polices lyfecycle mgmt, audit
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+[DB]
+RDS
+  multi AZ (no acces to underlying EC2 OS) - sql, oracel, mysql, postgresql, mariadb, Aurora
+  OLTP - large transactions; RDS is not suitable for OLAP online analytical processing - bid data; use Redshift
+  Read Replica (automatic backup needed) is for boosting performance whereas multi AZ is for Disater Recovery Failover
+Aurora
+  3 types of replicas - Aurora, mysql, postgresql
+  - 10 G storage auto scale, 2 copies in each AZ = 6 copies of data
+  performance of Aurora but spiky workloads - Aurora serverless
+Dynamo DB
+  non relational/no-sql db - mobile, gaming, IOT; pay per request; charge for syorage/backups; KMS; IAM
+  SSD storage, 3 geographic DataCenters regions; eventual consistentcy (1sec)
+  DAX (accelerator) 10x perf improvement
+  ACID - atomic(all/nothing), consistent, isolated, durable -> use dynamodb transactions
+  PITR (point in time recovery; not enabled by default; last 35 days, 5 mins increments)
+  Streams - time ordered sequence FIFO, stored 24hrs, globally distributed multi-master with global tables, 
 
 -----------------------------------------------------------------------------------------------------------------------------------

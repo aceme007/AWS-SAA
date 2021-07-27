@@ -90,15 +90,15 @@ AWS backup gives you consolidation, can be used in conjuction with AWS Organizat
 -----------------------------------------------------------------------------------------------------------------------------------
 
 [DB]
-RDS
-  multi AZ (no acces to underlying EC2 OS) - sql, oracel, mysql, postgresql, mariadb, Aurora
+RDS (lives in VPC)
+  multi AZ (i.e no replica) (no acces to underlying EC2 OS) - sql, oracel, mysql, postgresql, mariadb, Aurora
   OLTP - large transactions; RDS is not suitable for OLAP online analytical processing - bid data; use Redshift
   Read Replica (automatic backup needed) is for boosting performance whereas multi AZ is for Disater Recovery Failover
 Aurora
   3 types of replicas - Aurora, mysql, postgresql
   - 10 G storage auto scale, 2 copies in each AZ = 6 copies of data
   performance of Aurora but spiky workloads - Aurora serverless
-Dynamo DB
+Dynamo DB (does not live in VPC)
   non relational/no-sql db - mobile, gaming, IOT; pay per request; charge for syorage/backups; KMS; IAM
   SSD storage, 3 geographic DataCenters regions; eventual consistentcy (1sec)
   DAX (accelerator) 10x perf improvement

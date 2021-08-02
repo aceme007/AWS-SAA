@@ -107,3 +107,36 @@ Dynamo DB (does not live in VPC)
   Streams - time ordered sequence FIFO, stored 24hrs, globally distributed multi-master with global tables, 
 
 -----------------------------------------------------------------------------------------------------------------------------------
+
+[VPC]
+logical DataCenter in AWS
+1 subnet is always in 1 AZ (subnet cannot span multiple AZ)
+we can have 1 IG (internet gateway) per VPC
+Creation of new VPC creates
+ - route table
+ - NACL (network access control list)
+ - SG (security groups)
+We lose 5 IP's on configuring /24 block (reserved by AWS)
+* always a good idea to disabled route to internet for main (route table)
+
+NAT gateway - enable instances in private subnet to connect to internet or other AWS services (provision in public subnet)
+redundant inside AZ
+5 - 45Gbps, not associated with SG, no need to patch, automatically assigned public IP
+
+SG is virtual firewall - all blocked default
+SG is stateful - send a request (port 80 in), response is allowed to flow back in regardless of outboung rules
+NACL (stateless) - 1st line of defense
+  VPC comes with default NACL - default it allows all inbound & outbound traffic
+  custom NACL - by dfeault, denies all inbound outbound traffic until you add rules
+  each subnet should be associated with NACL else uses default NACL
+  1 NACL can cater to multiple subnets whereas 1 subnet can only be associated with 1 NACL
+  separate inbound/outbound rules - evaulated in chronoogical order (numbered)
+  
+VPC Endpoints - privatelink (uses AWS backbone), virtual devices, no bandwidth constraints on your network traffic
+ - Interface Endpoints 
+ - Gateway Endpoints S3, DynamoDB
+VPC Peering - transitive peering not supported in VPC, uses direct network route
+  - always uses hub-spoke model (STAR)
+  - can't have overriding CIDR address range
+VPN CloudHub  
+AWS PrivateLink - does not need VPC Peering, needs NLB in service VPC and ENI on customer VPC
